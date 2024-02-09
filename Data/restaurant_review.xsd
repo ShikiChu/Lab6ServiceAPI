@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" 
+           targetNamespace="http://www.algonquincollege.com/cst8259/labs"
+           xmlns:alg="http://www.algonquincollege.com/cst8259/labs"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="restaurant_reviews">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="restaurant">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name" type="xs:string" />
+              <xs:element ref="alg:address"/>
+              <xs:element name="cost" type="alg:RangeType"/>
+              <xs:element name="food_type" type="xs:string" />
+              <xs:element name="rating" type="alg:RangeType"/>
+              <xs:element name="summary" type="xs:string" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="address">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="street_address" type="xs:string" />
+        <xs:element name="city" type="xs:string" />
+        <xs:element name="state_province" type="alg:StateProvinceType" />
+        <xs:element name="zip_postal_code" type="alg:PostalCodeType" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name ="PostalCodeType">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[a-zA-Z]\d[a-zA-Z](\s)*\d[a-zA-Z]\d" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="StateProvinceType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AB"/>
+      <!--Alberta-->
+      <xs:enumeration value="BC"/>
+      <!--British Columbia-->
+      <xs:enumeration value="MB"/>
+      <!--Manitoba-->
+      <xs:enumeration value="NB"/>
+      <!--New Brunswick-->
+      <xs:enumeration value="NL"/>
+      <!--Newfoundland and Labrador-->
+      <xs:enumeration value="NS"/>
+      <!--Nova Scotia-->
+      <xs:enumeration value="ON"/>
+      <!--Ontario-->
+      <xs:enumeration value="PE"/>
+      <!--Prince Edward Island-->
+      <xs:enumeration value="QC"/>
+      <!--Quebec-->
+      <xs:enumeration value="NT"/>
+      <!--Northwest Territories-->
+      <xs:enumeration value="NU"/>
+      <!--Nunavut-->
+      <xs:enumeration value="YT"/>
+      <!--Yukon-->
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="RangeType">
+    <xs:simpleContent>
+      <xs:extension base="xs:unsignedByte">
+        <xs:attribute name="min" type="xs:unsignedByte" use="required" />
+        <xs:attribute name="max" type="xs:unsignedByte" use="required" />
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+</xs:schema>
